@@ -134,14 +134,45 @@ install_pre_commit() {
   (cd "${REPO_ROOT}" && pre-commit install)
 }
 
+ensure_path_persistent() {
+  local marker="# Added by mona.cool scripts/setup.sh"
+  local rc_file export_line
+
+  case "$(basename "${SHELL:-bash}")" in
+    zsh)
+      rc_file="${HOME}/.zshrc"
+      export_line="export PATH="$HOME/.local/bin:$PATH""
+      ;;
+    fish)
+      rc_file="${HOME}/.config/fish/config.fish"
+      export_line="fish_add_path -g $HOME/.local/bin"
+      ;;
+    *)
+      rc_file="${HOME}/.bashrc"
+      export_line="export PATH="$HOME/.local/bin:$PATH""
+      ;;
+  esac
+
+  if [[ -f "${rc_file}" ]] && grep -Fq "${marker}" "${rc_file}"; then
+    log "${BIN_DIR} already wired into ${rc_file}."
+    return
+  fi
+
+  log "Adding ${BIN_DIR} to PATH in ${rc_file}..."
+  mkdir -p "$(dirname "${rc_file}")"
+  {
+    printf '\n%s\n' "${marker}"
+    printf '%s\n' "${export_line}"
+  } >> "${rc_file}"
+
+  warn "PATH updated in ${rc_file}. Run 'source ${rc_file}' or open a new shell to pick it up."
+}
+
 install_hugo
 install_dart_sass
 install_uv
 install_node_deps
 install_pre_commit
+ensure_path_persistent
 
 log "Done."
-case ":${PATH}:" in
-  *":${BIN_DIR}:"*) ;;
-  *) warn "${BIN_DIR} is not on your PATH. Add: export PATH=\"\${HOME}/.local/bin:\${PATH}\"" ;;
-esac
