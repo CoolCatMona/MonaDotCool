@@ -1,18 +1,22 @@
-<!DOCTYPE html>
-<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
-<html lang="en" charset="utf-8">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>cool.</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Syne+Mono&display=swap"
-			rel="stylesheet">
-		<link rel="stylesheet" href="/css/style.css?v=12.24.24.01">
-	</head>
-	<body>
-		{{ block "main" . }}
-		{{ end }}
-	</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cool.</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Syne+Mono&display=swap"
+      rel="stylesheet"
+    />
+    {{ $css := resources.Get "/css/layout.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+    {{ $js := resources.Get "/js/canvas.js" | js.Build (dict "minify" true) | resources.Fingerprint }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+  </head>
+  <body>
+    {{ block "main" . }}{{ end }}
+  </body>
 </html>
