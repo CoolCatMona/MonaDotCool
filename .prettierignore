@@ -1,0 +1,15 @@
+# Build output / generated
+public/
+resources/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Vendored third-party CSS — leave untouched so upstream diffs stay clean
+assets/css/_normalize.scss
+assets/css/photoswipe/
+
+# Pre-minified vendor JS (none currently, but keep the door open)
+**/*.min.js
+**/*.min.css

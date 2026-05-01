@@ -1,4 +1,4 @@
-import justifiedLayout from "./justified-layout/index.js";
+import justifiedLayout from "justified-layout";
 import * as params from "@params";
 
 const gallery = document.getElementById("gallery");
@@ -26,7 +26,11 @@ if (gallery) {
       containerPadding: 0,
       boxSpacing: Number.isInteger(params.boxSpacing) ? params.boxSpacing : 8,
       targetRowHeight: params.targetRowHeight || 288,
-      targetRowHeightTolerance: Number.isInteger(params.targetRowHeightTolerance) ? params.targetRowHeightTolerance : 0.25,
+      targetRowHeightTolerance: Number.isInteger(
+        params.targetRowHeightTolerance,
+      )
+        ? params.targetRowHeightTolerance
+        : 0.25,
     });
 
     items.forEach((item, i) => {
