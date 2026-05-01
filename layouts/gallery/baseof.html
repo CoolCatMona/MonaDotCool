@@ -3,7 +3,6 @@
   {{ partial "head.html" . }}
   <body>
     {{ block "main" . }}{{ end }}
-    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
     <div class="background">
       <canvas id="backgroundCanvas"></canvas>
     </div>
