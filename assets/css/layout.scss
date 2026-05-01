@@ -66,7 +66,7 @@ html {
     ". . . center center center center . . ."
     ". links . center center center center . right right"
     ". . . center center center center . right right"
-    "left left . center center center center . . ."
+    "left left . center center center center . buttons buttons"
     ". . . center center center center . . .";
   grid-template-rows: auto;
   grid-template-columns: auto;
@@ -150,6 +150,28 @@ html {
   display: block;
   text-align: left;
   line-height: 2;
+}
+
+.buttons-box {
+  grid-area: buttons;
+  background-color: white;
+  padding: 8px;
+  place-self: center end;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.buttons-box a,
+.buttons-box img {
+  display: block;
+  line-height: 0;
+}
+
+.buttons-box img {
+  image-rendering: pixelated;
 }
 
 .center-box {
@@ -280,6 +302,12 @@ a:visited {
 
   .link-box {
     order: 4;
+  }
+
+  .buttons-box {
+    order: 5;
+    place-self: stretch;
+    max-width: 100%;
   }
 
   .header {
