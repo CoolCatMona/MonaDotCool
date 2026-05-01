@@ -1,6 +1,6 @@
-import PhotoSwipeLightbox from "./photoswipe/photoswipe-lightbox.esm.js";
-import PhotoSwipe from "./photoswipe/photoswipe.esm.js";
-import PhotoSwipeDynamicCaption from "./photoswipe/photoswipe-dynamic-caption-plugin.esm.min.js";
+import PhotoSwipeLightbox from "photoswipe/lightbox";
+import PhotoSwipe from "photoswipe";
+import PhotoSwipeDynamicCaption from "photoswipe-dynamic-caption-plugin";
 import * as params from "@params";
 
 const gallery = document.getElementById("gallery");
@@ -28,7 +28,8 @@ if (gallery) {
       tagName: "a",
       html: {
         isCustomSVG: true,
-        inner: '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
+        inner:
+          '<path d="M20.5 14.3 17.1 18V10h-2.2v7.9l-3.4-3.6L10 16l6 6.1 6-6.1ZM23 23H9v2h14Z" id="pswp__icn-download"/>',
         outlineID: "pswp__icn-download",
       },
       onInit: (el, pswp) => {
@@ -44,7 +45,8 @@ if (gallery) {
   });
 
   lightbox.on("change", () => {
-    const target = lightbox.pswp.currSlide?.data?.element?.dataset["pswpTarget"];
+    const target =
+      lightbox.pswp.currSlide?.data?.element?.dataset["pswpTarget"];
     history.replaceState("", document.title, "#" + target);
   });
 
