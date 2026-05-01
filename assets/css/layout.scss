@@ -51,12 +51,10 @@ html {
 
 .center-grid {
   grid-area: center;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   height: 80%;
-  grid-template-areas: ". header" ". content";
-  grid-template-rows: auto 1fr;
-  grid-template-columns: auto 1fr;
-  column-gap: 30px;
+  padding-left: 30px;
 }
 
 /* Center Box Container */
@@ -249,4 +247,82 @@ a:hover {
 
 a:visited {
   color: var(--color-d);
+}
+
+@media (max-width: 900px) {
+  .page-content {
+    padding: 24px 20px;
+  }
+
+  .grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    height: auto;
+    width: 100%;
+  }
+
+  .center-grid {
+    order: 1;
+    height: auto;
+    padding-left: 0;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .left-box {
+    order: 2;
+  }
+
+  .right-box {
+    order: 3;
+  }
+
+  .link-box {
+    order: 4;
+  }
+
+  .header {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  .center-box,
+  .left-box,
+  .right-box {
+    min-width: 0;
+    max-width: 100%;
+    max-height: none;
+    width: 100%;
+    place-self: stretch;
+  }
+
+  .center-box {
+    min-height: 280px;
+  }
+
+  .left-box {
+    min-height: 140px;
+  }
+
+  .right-box {
+    min-height: 0;
+    padding: 16px 20px;
+  }
+
+  #right-box-text {
+    padding-left: 0;
+  }
+
+  .with-shadow {
+    box-shadow:
+      -6px 6px 0 0 black,
+      -12px 12px 0 0 white;
+  }
+
+  .page-content h1 {
+    font-size: 2rem;
+  }
 }
