@@ -1,0 +1,12 @@
+# Hugo build output
+/public/
+
+# Hugo cache + lock
+/resources/
+.hugo_build.lock
+
+# npm
+/node_modules/
+
+# Claude Configs
+.claude/
