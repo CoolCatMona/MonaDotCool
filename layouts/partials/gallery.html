@@ -6,7 +6,7 @@
       {{ $date := "" }}
       {{ with $image.Meta }}
         {{ $date = .Date }}
-        {{ with .Description }}
+        {{ with .Exif.ImageDescription }}
           {{/* Title from EXIF ImageDescription */}}
           {{ $title = . }}
         {{ end }}
