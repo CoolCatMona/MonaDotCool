@@ -29,11 +29,6 @@
     "targetRowHeight" (default 288 .Site.Params.gallery.targetRowHeight)
     "targetRowHeightTolerance" (default 0.25 .Site.Params.gallery.targetRowHeightTolerance)
   }}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Syne+Mono&display=swap"
-    rel="stylesheet">
   {{ $js := resources.Get "js/main.js" | js.Build (dict "minify" true "params" $params) | resources.Fingerprint }}
   <script src="{{ $js.RelPermalink }}" defer></script>
 </head>
