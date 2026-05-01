@@ -31,6 +31,44 @@ Kill the server with `pkill hugo`.
 
 Build for production with `hugo --gc --minify` — `--gc` cleans stale cache entries from `public/` so drafts and expired files don't linger. CI runs this automatically on push to `main`.
 
+## Adding a font
+
+Self-hosted fonts live in [static/fonts/](static/fonts/) and are referenced by `@font-face` rules in [assets/css/layout.scss](assets/css/layout.scss). Browsers prefer `woff2` (≈30% smaller than `ttf`/`otf`), so convert source files before checking them in.
+
+### Convert OTF/TTF to woff2
+
+Install [fonttools](https://github.com/fonttools/fonttools) once via [uv](https://docs.astral.sh/uv/):
+
+```sh
+uv tool install fonttools --with brotli
+```
+
+Then convert each weight:
+
+```sh
+fonttools ttLib.woff2 compress -o static/fonts/myfont.woff2 path/to/MyFont.otf
+```
+
+### Wire it up
+
+Add an `@font-face` block per weight at the top of [assets/css/layout.scss](assets/css/layout.scss):
+
+```scss
+@font-face {
+  font-family: "MyFont";
+  src: url("/fonts/myfont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+```
+
+Reference the family by name elsewhere (e.g. `font-family: "MyFont", monospace;`).
+
+### Licensing
+
+If the font ships under SIL OFL (or similar), the license must travel with the binaries — copy it into [static/fonts/](static/fonts/) (e.g. as `OFL.txt`) so it's served alongside the font files.
+
 ## Changelog
 
 ### 2024-12-01
