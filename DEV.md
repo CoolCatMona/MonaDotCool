@@ -4,7 +4,7 @@ Development notes and references for this project
 
 ## Setup
 
-Run `./scripts/setup.sh` to install Hugo extended, Dart Sass, npm dependencies, and pre-commit (Linux only). Binaries land in `~/.local/bin` — make sure that's on your `PATH`.
+Run `./scripts/setup.sh` to install Hugo extended, Dart Sass, npm dependencies, and pre-commit (Linux only). Binaries land in `~/.local/bin`; the script appends that directory to your shell rc (`.bashrc` / `.zshrc` / fish `config.fish`) once, so `source` it or open a new shell after the first run.
 
 Override versions if needed: `HUGO_VERSION=0.161.1 DART_SASS_VERSION=1.83.4 ./scripts/setup.sh`.
 

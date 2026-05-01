@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
     {{ $js := resources.Get "/js/canvas.js" | js.Build (dict "minify" true) | resources.Fingerprint }}
     <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ $custom := resources.Get "/js/custom.js" | js.Build (dict "minify" true) | resources.Fingerprint }}
+    <script src="{{ $custom.RelPermalink }}" defer></script>
   </head>
   <body>
     {{ block "main" . }}{{ end }}

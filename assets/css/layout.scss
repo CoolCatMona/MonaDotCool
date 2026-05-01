@@ -185,6 +185,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .with-shadow {
@@ -199,10 +200,30 @@ html {
   object-fit: contain;
 }
 
+.center-image {
+  opacity: 1;
+  transition: opacity 0.75s ease;
+}
+
 /* p elements inside of the center box */
 .center-box p {
   font-size: 1.2rem;
   color: var(--color-a);
+}
+
+p.center-text {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  bottom: 30px;
+  left: 20px;
+  margin: 0;
+  text-align: left;
+  color: black;
+  opacity: 0;
+  pointer-events: none;
+  overflow-y: auto;
+  transition: opacity 0.75s ease;
 }
 
 /* Bottom Text inside of the center box */
@@ -213,11 +234,103 @@ html {
   margin: 0;
   padding-bottom: 2px;
   padding-right: 6px;
+  transition: opacity 0.6s ease;
+}
+
+.bottom-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s ease;
 }
 
 p.bottom-text {
   color: black;
   font-size: 0.8rem;
+}
+
+p.bottom-text-alt {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding-bottom: 2px;
+  padding-left: 6px;
+  text-align: left;
+  color: black;
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
+}
+
+/* Sequence (forward):
+   0.0 – 0.6s : strikethrough sweeps across old bottom-text
+   0.6 – 0.9s : pause
+   0.9 – 1.5s : new bottom-text fades + slides in from left
+   1.5 – 1.9s : old (struck-through) bottom-text fades out
+   1.9 – 2.4s : center image fades out
+   2.4 – 2.9s : center lorem text fades in
+*/
+
+.center-box.revealed .bottom-text::after {
+  transform: scaleX(1);
+  transition: transform 0.6s ease;
+}
+
+.center-box.revealed .bottom-text-alt {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 0.6s ease 0.9s,
+    transform 0.6s ease 0.9s;
+}
+
+.center-box.revealed .bottom-text {
+  opacity: 0;
+  transition: opacity 0.4s ease 1.5s;
+}
+
+.center-box.revealed .center-image {
+  opacity: 0;
+  transition: opacity 0.5s ease 1.9s;
+}
+
+.center-box.revealed .center-text {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.5s ease 2.4s;
+}
+
+.small {
+  font-size: 0.5em;
+}
+
+.bouncy {
+  display: inline-block;
+}
+
+.bouncy span {
+  display: inline-block;
+  animation: bouncy-letter 3s ease-in-out infinite;
+}
+
+@keyframes bouncy-letter {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 canvas {

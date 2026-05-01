@@ -4,6 +4,6 @@ if (el) {
     event.preventDefault();
     const target = document.getElementById("menu");
     el.ariaExpanded = target.classList.contains("hidden");
-    target.classList.toggle("hidden");
+    target.classList.add("hidden");
   });
 }
