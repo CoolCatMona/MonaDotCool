@@ -1,12 +1,16 @@
 {{ define "main" }}
-<h1>Beneath the mask</h1>
-Unfiltered thoughts and feelings.
-<ul>
-    {{ range .Pages }}
-    <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a> - {{ .Date.Format
-        "Jan 2, 2006" }}
-    </li>
-    {{ end }}
-</ul>
+<div class="page-content">
+    <section class="blogpost with-shadow">
+        <h1>Beneath the mask</h1>
+        Unfiltered thoughts and feelings.
+        <ul>
+            {{ range .Pages }}
+            <li>
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a> - {{ .Date.Format
+                "Jan 2, 2006" }}
+            </li>
+            {{ end }}
+        </ul>
+    </section>
+</div>
 {{ end }}

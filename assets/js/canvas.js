@@ -118,6 +118,10 @@ function init() {
 
 init();
 
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+
 /* Mouse Settings */
 
 const mouse = {
@@ -125,18 +129,20 @@ const mouse = {
   y: undefined,
 };
 
-// Listen for mousemove on the document
-document.addEventListener("mousemove", (event) => {
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = event.clientX - rect.left;
-  mouse.y = event.clientY - rect.top;
-});
+if (!prefersReducedMotion) {
+  // Listen for mousemove on the document
+  document.addEventListener("mousemove", (event) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = event.clientX - rect.left;
+    mouse.y = event.clientY - rect.top;
+  });
 
-// Reset mouse position when it leaves the window
-document.addEventListener("mouseleave", () => {
-  mouse.x = undefined;
-  mouse.y = undefined;
-});
+  // Reset mouse position when it leaves the window
+  document.addEventListener("mouseleave", () => {
+    mouse.x = undefined;
+    mouse.y = undefined;
+  });
+}
 
 /* Mouse Settings*/
 
@@ -180,4 +186,17 @@ function drawLine(p1, p2) {
   ctx.stroke();
 }
 
-animate();
+if (prefersReducedMotion) {
+  // Draw one static frame so the background isn't blank
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const i = y * cols + x;
+      const p1 = points[i];
+      if (x < cols - 1) drawLine(p1, points[i + 1]);
+      if (y < rows - 1) drawLine(p1, points[i + cols]);
+    }
+  }
+  points.forEach((point) => point.draw());
+} else {
+  animate();
+}

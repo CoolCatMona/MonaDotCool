@@ -1,7 +1,7 @@
 {
   "name": "mona.cool",
   "private": true,
-  "description": "Source for mona.cool — a Hugo site.",
+  "description": "Source for mona.cool - a Hugo site.",
   "license": "MIT",
   "dependencies": {
     "justified-layout": "^4.1.0",

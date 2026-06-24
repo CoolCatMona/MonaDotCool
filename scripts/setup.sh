@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# Dev environment setup for mona.cool (Linux).
 # Installs Hugo extended, Dart Sass, and npm dependencies.
-# Binaries land in ~/.local/bin
 set -euo pipefail
 
 HUGO_VERSION="${HUGO_VERSION:-0.161.1}"
@@ -118,7 +116,7 @@ install_uv() {
 
 install_pre_commit() {
   if ! command -v uv >/dev/null 2>&1; then
-    warn "uv not on PATH — skipping pre-commit install. Add ${BIN_DIR} to PATH and re-run."
+    warn "uv not on PATH - skipping pre-commit install. Add ${BIN_DIR} to PATH and re-run."
     return
   fi
 

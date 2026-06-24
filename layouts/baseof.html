@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="{{ or site.Language.Locale site.Language.Lang `en` }}">
+  {{ partial "head.html" . }}
+  <body>
+    <main{{ if ne .Section "gallery" }} class="content-main"{{ end }}>
+      {{ block "main" . }}{{ end }}
+    </main>
+    <div class="background">
+      <canvas id="backgroundCanvas"></canvas>
+    </div>
+  </body>
+</html>

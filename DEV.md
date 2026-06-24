@@ -10,30 +10,30 @@ Override versions if needed: `HUGO_VERSION=0.161.1 DART_SASS_VERSION=1.83.4 ./sc
 
 ## Pre-commit
 
-The setup script wires a git hook via `pre-commit install`. On every commit it runs:
+The setup script wires a git hook via `pre-commit install`. Every commit runs:
 
 - whitespace / EOL / line-ending fixes
 - YAML / TOML / JSON syntax checks
 - merge-conflict marker check
-- large-file check (max 32 MB — bump in [.pre-commit-config.yaml](.pre-commit-config.yaml) if you start adding bigger photos)
+- large-file check (max 32 MB - bump in [.pre-commit-config.yaml](.pre-commit-config.yaml) if you start adding bigger photos)
 - `shellcheck` on shell scripts
 - `prettier` on CSS / SCSS / JS / JSON / Markdown
 
 After first install, run `pre-commit run --all-files` once to apply Prettier + EOL fixes across the existing tree (one-time formatting commit).
 
-Skip hooks for a single commit with `git commit --no-verify` — but it's usually faster to fix the issue.
+Skip hooks for a single commit with `git commit --no-verify` - but it's usually faster to fix the issue.
 
 ## Running
 
-Start the server with `hugo server` (use `hugo server -D` to preview drafts).
+Start with `hugo server` (use `hugo server -D` to preview drafts).
 
 Kill the server with `pkill hugo`.
 
-Build for production with `hugo --gc --minify` — `--gc` cleans stale cache entries from `public/` so drafts and expired files don't linger. CI runs this automatically on push to `main`.
+Build for production with `hugo --gc --minify` - `--gc` cleans stale cache entries from `public/` so drafts and expired files don't linger. CI runs this automatically on push to `main`.
 
 ## Adding a font
 
-Self-hosted fonts live in [static/fonts/](static/fonts/) and are referenced by `@font-face` rules in [assets/css/layout.scss](assets/css/layout.scss). Browsers prefer `woff2` (≈30% smaller than `ttf`/`otf`), so convert source files before checking them in.
+Self-hosted fonts live in [static/fonts/](static/fonts/) and are referenced by `@font-face` rules in [assets/css/layout.scss](assets/css/layout.scss). Browsers prefer `woff2` (~30% smaller than `ttf`/`otf`), so convert source files before checking them in.
 
 ### Convert OTF/TTF to woff2
 
@@ -67,13 +67,21 @@ Reference the family by name elsewhere (e.g. `font-family: "MyFont", monospace;`
 
 ### Licensing
 
-If the font ships under SIL OFL (or similar), the license must travel with the binaries — copy it into [static/fonts/](static/fonts/) (e.g. as `OFL.txt`) so it's served alongside the font files.
+If the font ships under SIL OFL (or similar), the license must travel with the binaries - copy it into [static/fonts/](static/fonts/) (e.g. as `OFL.txt`) so it's served alongside the font files.
 
 ## Changelog
 
 ### 2024-12-01
 
 Switched to [Hugo](https://gohugo.io/documentation/)
+
+### 2026-05-01
+
+Small Refactor
+
+### 2026-06-24
+
+Switch to latest Hugo and use best practices
 
 ## Links
 
@@ -82,3 +90,16 @@ Links to useful resources
 [CSS Units](https://www.geeksforgeeks.org/css-units-em-rem-px-vh-vw/)
 
 [Hugo Theme Gallery](https://github.com/nicokaiser/hugo-theme-gallery/)
+
+### Hugo best practices
+
+- [Directory structure](https://gohugo.io/getting-started/directory-structure/) - what each top-level folder is for
+- [Template system overview](https://gohugo.io/templates/new-templatesystem-overview/) - the v0.146 layouts overhaul (baseof / home / page / \_partials); why the templates are laid out the way they are
+- [Configuration](https://gohugo.io/configuration/introduction/) - config keys and build environments
+- [Page bundles](https://gohugo.io/content-management/page-bundles/) - leaf (`index.md`) vs branch (`_index.md`); how the gallery albums are structured
+- [Front matter](https://gohugo.io/content-management/front-matter/) - per-page fields like `title`, `date`, `draft`, `description`
+- [Hugo Pipes](https://gohugo.io/hugo-pipes/introduction/) - the SCSS/JS asset pipeline (`toCSS`, `js.Build`, minify, fingerprint)
+- [Embedded templates](https://gohugo.io/templates/embedded/) - the Open Graph / Twitter / schema building blocks
+- [RSS templates](https://gohugo.io/templates/rss/) - the built-in feed output format
+- [Sitemap templates](https://gohugo.io/templates/sitemap/) - the built-in `sitemap.xml`
+- [Deprecation process](https://gohugo.io/troubleshooting/deprecation/) - how Hugo phases out APIs; handy when a build starts warning

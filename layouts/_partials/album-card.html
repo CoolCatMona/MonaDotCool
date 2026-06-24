@@ -8,9 +8,9 @@
       <h2>{{ .page.Params.album_title }}</h2>
       <p>
         {{ if gt .albumCount 0 }}
-          {{ T "albumCount" (dict "count" (.albumCount | lang.FormatNumber 0) "photoCount" (.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
+          {{ T "albumCount" (dict "Count" .albumCount "photoCount" (.imageCount | lang.Translate "photoCount")) }}
         {{ else }}
-          {{ T "photoCount" (.imageCount | lang.FormatNumber 0) }}
+          {{ T "photoCount" .imageCount }}
         {{ end }}
       </p>
     </div>

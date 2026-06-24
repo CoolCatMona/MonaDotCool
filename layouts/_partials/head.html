@@ -1,0 +1,43 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>cool.</title>
+  <link rel="canonical" href="{{ .Permalink }}" />
+  <link rel="icon" type="image/x-icon" href="{{ "/img/favicon.ico" | relURL }}" />
+  {{ $desc := "" }}
+  {{ with .Description }}{{ $desc = . }}{{ else }}{{ with .Summary }}{{ $desc = . }}{{ else }}{{ $desc = site.Params.description }}{{ end }}{{ end }}
+  {{ $desc = $desc | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace | truncate 160 }}
+  <meta name="description" content="{{ $desc }}" />
+  {{ with .Params.keywords }}<meta name="keywords" content="{{ delimit . `, ` }}" />{{ end }}
+  {{ if .Params.private }}<meta name="robots" content="noindex, nofollow" />{{ else }}<meta name="robots" content="index, follow" />{{ end }}
+  {{ partial "opengraph.html" (dict "page" . "description" $desc) }}
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink (printf "%s - %s" $.Title site.Title) | safeHTML }}
+  {{ end -}}
+  {{ if eq .Section "gallery" }}
+    {{/* Gallery pages: main.scss + main.js bundle (preserve the existing working block verbatim) */}}
+    {{ $css := resources.Get "css/main.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+    {{ $params := dict
+      "closeTitle" (i18n "closeTitle")
+      "zoomTitle" (i18n "zoomTitle")
+      "arrowPrevTitle" (i18n "arrowPrevTitle")
+      "arrowNextTitle" (i18n "arrowNextTitle")
+      "errorMsg" (i18n "errorMsg")
+      "downloadTitle" (i18n "downloadTitle")
+      "boxSpacing" (default 8 site.Params.gallery.boxSpacing)
+      "targetRowHeight" (default 288 site.Params.gallery.targetRowHeight)
+      "targetRowHeightTolerance" (default 0.25 site.Params.gallery.targetRowHeightTolerance)
+    }}
+    {{ $js := resources.Get "js/main.js" | js.Build (dict "minify" true "params" $params) | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+  {{ else }}
+    {{/* Home, blog, fallback pages: layout.scss + canvas.js + custom.js */}}
+    {{ $css := resources.Get "css/layout.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+    {{ $canvas := resources.Get "js/canvas.js" | js.Build (dict "minify" true) | fingerprint }}
+    <script src="{{ $canvas.RelPermalink }}" defer></script>
+    {{ $custom := resources.Get "js/custom.js" | js.Build (dict "minify" true) | fingerprint }}
+    <script src="{{ $custom.RelPermalink }}" defer></script>
+  {{ end }}
+</head>

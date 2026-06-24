@@ -1,4 +1,14 @@
 baseURL = 'https://mona.cool/'
 locale = 'en-us'
+defaultContentLanguage = 'en'
 title = 'mona.cool'
 disableKinds = ['taxonomy', 'term']
+
+[params]
+  description = "Mona's corner of the web: a blog, commissioned art, and photography wrapped in a Y2K aesthetic. The coolest site on the internet."
+  [params.author]
+    name = 'Mona'
+
+[module]
+  [module.hugoVersion]
+    min = '0.146.0'

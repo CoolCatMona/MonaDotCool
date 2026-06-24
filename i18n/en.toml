@@ -1,0 +1,32 @@
+# English translations for mona.cool (gallery layout adapted from nicokaiser/hugo-theme-gallery)
+
+# --- Gallery counts (album-card.html) ---
+# photoCount is called with an integer, so Hugo exposes it as .Count for pluralization.
+[photoCount]
+  one   = "{{ .Count }} photo"
+  other = "{{ .Count }} photos"
+
+# albumCount receives a dict: Count = number of sub-albums (int, for pluralization),
+# photoCount = the already-translated photo-count string.
+[albumCount]
+  one   = "{{ .photoCount }} in {{ .Count }} album"
+  other = "{{ .photoCount }} in {{ .Count }} albums"
+
+# --- PhotoSwipe lightbox button labels (head.html -> JS params) ---
+[closeTitle]
+  other = "Close"
+
+[zoomTitle]
+  other = "Zoom"
+
+[arrowPrevTitle]
+  other = "Previous"
+
+[arrowNextTitle]
+  other = "Next"
+
+[errorMsg]
+  other = "The photo cannot be loaded"
+
+[downloadTitle]
+  other = "Download"

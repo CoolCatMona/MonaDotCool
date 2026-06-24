@@ -6,6 +6,10 @@ if (centerBox) {
   });
 }
 
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+
 document.querySelectorAll(".bouncy").forEach((el) => {
   const text = el.textContent;
   el.textContent = "";
@@ -16,7 +20,9 @@ document.querySelectorAll(".bouncy").forEach((el) => {
     }
     const span = document.createElement("span");
     span.textContent = char;
-    span.style.animationDelay = `${i * 0.1}s`;
+    if (!reducedMotion) {
+      span.style.animationDelay = `${i * 0.1}s`;
+    }
     el.appendChild(span);
   });
 });
